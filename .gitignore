@@ -426,6 +426,3 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
-/StacksAndQueues/StacksAndQueues.slnx
-/StacksAndQueues/StacksAndQueues.vcxproj
-/StacksAndQueues/StacksAndQueues.vcxproj.filters
