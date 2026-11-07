@@ -47,7 +47,21 @@ void displayMsg(char* message)
 void displayError(char* message)
 {
 	printf("\nAn error occured:\n");
-	printf("%s\n", errorMessage);
+	printf("%s\n", message);
 }
 
 //display the main menu
+void displayMenu()
+{
+	printf
+	(
+		"\n\nTask Scheduler Menu:\n"
+		"1. Add a Task\n"
+		"2. Process a Task\n"
+		"3. Undo Last Completed Task\n"
+		"4. View Pending Tasks\n"
+		"5. View Completed Tasks\n"
+		"6. Exit\n"
+		"\nEnter your choice: "
+	);
+}

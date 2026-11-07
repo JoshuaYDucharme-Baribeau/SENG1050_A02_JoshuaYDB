@@ -142,6 +142,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="src\inputHandler.c" />
     <ClCompile Include="src\listManager.c" />
+    <ClCompile Include="src\main.c" />
     <ClCompile Include="src\userInterface.c" />
   </ItemGroup>
   <ItemGroup>

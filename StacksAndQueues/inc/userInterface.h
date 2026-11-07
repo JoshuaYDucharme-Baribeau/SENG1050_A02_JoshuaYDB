@@ -19,5 +19,7 @@ void displayMsg(char* message);
 
 void displayError(char* message);
 
+void displayMenu();
+
 
 #endif
