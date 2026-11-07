@@ -139,7 +139,6 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
     <ClCompile Include="src\inputHandler.c" />
     <ClCompile Include="src\listManager.c" />
     <ClCompile Include="src\main.c" />

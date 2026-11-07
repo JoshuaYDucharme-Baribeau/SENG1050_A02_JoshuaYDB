@@ -12,5 +12,9 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
 
+void GetNewTaskName(char** taskName);
+
+int GetNewTaskPriority();
+
 
 #endif
