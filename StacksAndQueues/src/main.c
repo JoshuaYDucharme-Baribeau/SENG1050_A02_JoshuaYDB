@@ -9,6 +9,7 @@
 
 
 #include "../inc/userInterface.h"
+#include "../inc/listManager.h"
 
 int main() 
 {
@@ -24,23 +25,23 @@ int main()
 		}
 		switch (choice) {
 		case 1:
-			CreateTaskNode(&head, &tail, &minID, &maxID);
+			//Add a task
 			break;
 		case 2:
-			PrintTasks(&head);
+			//Process task
 			break;
 		case 3:
-			FindTaskViaId(&head);
+			//Undo task
 			break;
 		case 4:
-			FindTaskWithText(&head);
+			//view queue
 			break;
 		case 5:
-			DeleteTaskById(&head, &tail, &minID, &maxID);
+			//view stack
 			break;
 		case 6:
+			//exit
 			printf("\n\nExiting and Freeing Allocated Memory.\n");
-			FreeAllTasks(&head, &tail, &minID, &maxID);
 			printf("Memory freed!\n");
 			return 0;
 		default:
