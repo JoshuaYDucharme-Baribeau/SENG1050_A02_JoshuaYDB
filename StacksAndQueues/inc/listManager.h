@@ -5,10 +5,9 @@
  * FIRST VERSION    : October 27 2026
  * DESCRIPTION      : header file for "listManager.c"
  *	This file contains prototypes and definitions for:
- *		- Any memory freeing functions
  *		- any stack or queue manipulations
  *		- any deletions or insertions of items
- * 
+ *		- adtl helper functions for the above
  */
 #ifndef LISTMANAGER_H
 #define LISTMANAGER_H
@@ -40,39 +39,49 @@ typedef struct Stack
 	int topIndex;
 }Stack;
 
-
+//queue management prototypes
+//initialize a queue
 Queue* InititalizeQueue(void);
 
+//add a task to the queue
 void EnQueue(Queue* TaskQueue, char* TaskName, int PriorityLevel);
 
+//return if queue is empty
 bool IsQueueEmpty(Queue* TaskQueue);
 
-//potential error with declaration/allocation of nameOfDequeued
+//remove a task from the queue, coupled with adding to the stack
 void DeQueue(Queue* TaskQueue, Stack* CompletedTaskStack);
 
+//return the front of the queue
 char* FrontOfQueue(Queue* TaskQueue);
 
+//return the back of the queue
 char* BackOfQueue(Queue* TaskQueue);
 
+//create a node/task struct
 Task* CreateTaskNode(char* TaskName, int PriorityLevel);
 
-// req
+//required, add a task to the queue
 void AddTask(Queue* TaskQueue, char* TaskName, int PriorityLevel);
 
-// req
+//required, print the queued tasks
 void ViewPendingTasks(Queue* TaskQueue);
 
-//req
+//required, dequeue a task and push it on the stack
 void ProcessTask(Queue* TaskQueue, Stack* CompletedTaskStack);
 
 
-//prototypes for stack management
+//prototypes for stack management below
+
+//initialize a stack
 Stack* InitializeStack(void);
 
-
+//return if stack is empty
 bool IsStackEmpty(Stack* stack);
+//return if stack is full
 bool IsStackFull(Stack* stack);
 
+//peek at a task on the stack
 Task* Peek(Stack* stack, int ixToPeek);
 
 //part of processing a task
@@ -81,12 +90,10 @@ void Push(Stack* stack, Task taskToPush);
 //part of undoing a task
 Task Pop(Stack* stack);
 
-//req
+//required
 void ViewCompletedTasks(Stack* CompletedTaskStack);
 
-
-
-//req 
+//required
 void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue);
 
 
