@@ -18,6 +18,7 @@ int main()
 {
 	//initialize the queue
 	Queue* queue = InititalizeQueue();
+	Stack* stack = InitializeStack();
 
 	int choice;
 	char* NewTaskName = NULL;
@@ -64,6 +65,8 @@ int main()
 			break;
 		case 2:
 			//Process task
+			ProcessTask(queue, stack);
+
 			break;
 		case 3:
 			//Undo task
@@ -74,6 +77,7 @@ int main()
 			break;
 		case 5:
 			//view stack
+			ViewCompletedTasks(stack);
 			break;
 		case 6:
 			//exit

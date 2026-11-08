@@ -15,6 +15,9 @@
 
 #include <stdbool.h>
 
+//define a maximum size for the stack
+#define MAX_STACK_SIZE 10
+
 //struct as defined in instructions
 typedef struct Task
 {
@@ -23,12 +26,19 @@ typedef struct Task
 	struct Task* next;
 }Task;
 
-//struct for the queue to keep track, from instructor demo code
+//struct for the queue, from instructor demo code
 typedef struct Queue
 {
 	Task* Front; // HEAD POINTER
 	Task* Back; // TAIL POINTER
 }Queue;
+
+//struct for the stack, from instructor demo code
+typedef struct Stack
+{
+	Task* bottomOfStack;
+	int topIndex;
+}Stack;
 
 
 Queue* InititalizeQueue(void);
@@ -38,8 +48,7 @@ void EnQueue(Queue* TaskQueue, char* TaskName, int PriorityLevel);
 bool IsQueueEmpty(Queue* TaskQueue);
 
 //potential error with declaration/allocation of nameOfDequeued
-char* DeQueue(Queue* TaskQueue);
-
+void DeQueue(Queue* TaskQueue, Stack* CompletedTaskStack);
 
 char* FrontOfQueue(Queue* TaskQueue);
 
@@ -47,22 +56,41 @@ char* BackOfQueue(Queue* TaskQueue);
 
 Task* CreateTaskNode(char* TaskName, int PriorityLevel);
 
-
+// req
 void AddTask(Queue* TaskQueue, char* TaskName, int PriorityLevel);
 
-
-
-
-
-// 
-//void ProcessTask(Queue* TaskQueue, Stack* CompletedTaskStack);
-// 
-//void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue);
-// 
+// req
 void ViewPendingTasks(Queue* TaskQueue);
 
+//req
+void ProcessTask(Queue* TaskQueue, Stack* CompletedTaskStack);
 
-// 
-//void ViewCompletedTasks(Stack* CompletedTaskStack);
+
+//prototypes for stack management
+Stack* InitializeStack(void);
+
+
+bool IsStackEmpty(Stack* stack);
+bool IsStackFull(Stack* stack);
+
+Task* Peek(Stack* stack, int ixToPeek);
+
+//part of processing a task
+void Push(Stack* stack, Task taskToPush);
+
+//part of undoing a task
+Task Pop(Stack* stack);
+
+//req
+void ViewCompletedTasks(Stack* CompletedTaskStack);
+
+
+
+//req 
+//void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue);
+
+
+
+
 
 #endif
