@@ -87,7 +87,7 @@ void ViewCompletedTasks(Stack* CompletedTaskStack);
 
 
 //req 
-//void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue);
+void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue);
 
 
 

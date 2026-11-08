@@ -11,30 +11,46 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+
+#include "../inc/inputHandler.h"
 
 //might need to pass the queue and stack to check for duplicate names if we want to prevent duplicate tasks
 //	since there is nothing in the instructions, will omit validating duplicate task names for now
-void GetNewTaskName(char** TaskName)
+void GetNewTaskName(char TaskName[MAX_NAME_LENGTH])
 {
 	bool isValidNameFlag = false;
 	
-	char* input = (char*)malloc(50);
-	//check for allocation failure
-	if (input == NULL) {
-		printf("\n\nMemory allocation failed. Exiting\n");
-		exit(EXIT_FAILURE);
-	}
-
-	while (getchar() != '\n'); // Clear the input buffer in case of previous inputs
+	char input[MAX_NAME_LENGTH];
 
 	while (!isValidNameFlag)
 	{
+		bool isBlank = true;
+
 		printf("\nEnter Task Name: ");
-		if (fgets(input, 50, stdin) == NULL) {
+		if (fgets(input, sizeof(input), stdin) == NULL) {
 			// if there was an error reading input
-			input[0] = '\0';
+			input[0] = '\0';//empty the input
 			printf("\n\nError reading input. Please try again.\n");
 			//try again
+			continue;
+		}
+
+		//check if input is blank
+		for (size_t i = 0; input[i] != '\0'; i++)
+		{
+			//if this is any nonspace character
+			if (!isspace((unsigned char)input[i]))
+			{
+				//it's not all whitespace
+				isBlank = false;
+				break;
+			}
+		}
+
+		if (isBlank)
+		{
+			printf("\n\nThe Task name may not be blank.");
 			continue;
 		}
 
@@ -64,8 +80,7 @@ void GetNewTaskName(char** TaskName)
 
 	}
 
-	*TaskName = input;
-
+	snprintf(TaskName, MAX_NAME_LENGTH, "%s", input);
 	return;
 
 }
@@ -76,7 +91,7 @@ int GetNewTaskPriority()
 	bool isValidInt = false;
 	char input[10];
 
-	while (getchar() != '\n'); // Clear the input buffer in case of previous inputs
+	//while (getchar() != '\n'); // Clear the input buffer in case of previous inputs
 	while (!isValidInt)
 	{
 		outputInt = -1; // reeset the input to a -1 in case of error

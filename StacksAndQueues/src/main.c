@@ -20,15 +20,21 @@ int main()
 	Queue* queue = InititalizeQueue();
 	Stack* stack = InitializeStack();
 
+	char input[20];
 	int choice;
-	char* NewTaskName = NULL;
+	char NewTaskName[MAX_NAME_LENGTH];
 	int NewTaskPriority;
+
+
 
 	while (1) {
 
 		displayMenu();
 
-		if (scanf("%d", &choice) != 1) {
+		fgets(input, sizeof(input), stdin);
+		//sscanf(input, "%d", &choice);
+
+		if (sscanf(input, "%d", &choice) != 1) {
 			printf("\nInvalid input. Please enter a number.\n");
 			while (getchar() != '\n'); // Clear the input buffer
 			continue;
@@ -38,29 +44,16 @@ int main()
 			//Add a task TO QUEUE
 
 			//clear the input name and priority in case
-			NewTaskName = NULL;
 			NewTaskPriority = -1;
 			
 			//get input of the name
-			GetNewTaskName(&NewTaskName);
+			GetNewTaskName(NewTaskName);
 			//get input of the priority
 			NewTaskPriority = GetNewTaskPriority();
 
-			if (NewTaskName[0] == '\0')
-			{
-				//show name error, should not occur as input handler handles validation
-			}
-			if (NewTaskPriority == -1)
-			{
-				//show priority error, should not occur as input handler handles validation
-			}
 			if (NewTaskName[0] != '\0' && NewTaskPriority != -1)
 			{
 				AddTask(queue, NewTaskName, NewTaskPriority);
-				//free the memory that taskNameInput was assigned within the AddTask call
-				free(NewTaskName);
-				//empty the NewTaskName pointer so it doesn't point to random memory later
-				NewTaskName = NULL;
 			}
 			break;
 		case 2:
@@ -70,6 +63,7 @@ int main()
 			break;
 		case 3:
 			//Undo task
+			UndoLastTask(stack, queue);
 			break;
 		case 4:
 			//view queue
@@ -81,8 +75,27 @@ int main()
 			break;
 		case 6:
 			//exit
-			printf("\n\nExiting and Freeing Allocated Memory.\n");
-			printf("Memory freed!\n");
+			printf("\n\nExiting Task Scheduler...\n\t>> Freeing Allocated Memory...");
+			//do the freeing
+
+
+			Task* current = queue->Front;
+			//free anything in the queue
+			while (current != NULL)
+			{
+				Task* tempNext = current->next;
+				free(current);
+				current = tempNext;
+			}
+			//free the queue struct
+			free(queue);
+			//free tasks on stack
+			free(stack->bottomOfStack);
+			//free the task struct
+			free(stack);
+
+
+			printf("\n\t>> Memory Cceanup complete!\n");
 			return 0;
 		default:
 			printf("\n\nInvalid choice. Please try again using the listed options.\n");

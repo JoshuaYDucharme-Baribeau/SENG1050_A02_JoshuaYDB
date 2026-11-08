@@ -18,16 +18,16 @@
 //initialize the queue
 Queue* InititalizeQueue(void)
 {
-    Queue* task_queue = (Queue*)malloc(sizeof(Queue));
-    if (task_queue == NULL)
+    Queue* taskQueue = (Queue*)malloc(sizeof(Queue));
+    if (taskQueue == NULL)
     {
         printf("Memory allocation failed. Exiting");
         exit(EXIT_FAILURE);
     }
 
-    task_queue->Front = NULL;
-    task_queue->Back = NULL;
-    return task_queue;
+    taskQueue->Front = NULL;
+    taskQueue->Back = NULL;
+    return taskQueue;
 }
 
 
@@ -50,7 +50,7 @@ void EnQueue(Queue* TaskQueue, char* TaskName, int PriorityLevel)
         TaskQueue->Back->next = toEnqueue;
         TaskQueue->Back = toEnqueue;
     }
-    printf("\t>> Task added successfully.");
+    printf("\t>> Task added to queue successfully.");
     return;
 }
 
@@ -83,7 +83,7 @@ void DeQueue(Queue* TaskQueue, Stack* CompletedTaskStack)
     }
     else
     {
-        printf("The stack is full, could not process a task!\n");
+        printf("The stack is full, could not process a task!\n Sam limited my memory usage!\n");
     }
     return;
 }
@@ -189,6 +189,12 @@ void ProcessTask(Queue* TaskQueue, Stack* CompletedTaskStack)
 //initialize the stack to be empty
 Stack* InitializeStack(void) {
     Stack* taskStack = (Stack*)malloc(sizeof(Stack));
+    if (taskStack == NULL)
+    {
+        printf("Memory allocation failed. Exiting");
+        exit(EXIT_FAILURE);
+    }
+
     taskStack->bottomOfStack = (Task*)malloc(MAX_STACK_SIZE * sizeof(Task));
     taskStack->topIndex = -1;
     return taskStack;
@@ -240,7 +246,8 @@ void Push(Stack* stack, Task taskToPush)
     stack->bottomOfStack[++stack->topIndex] = taskToPush;
 }
 
-Task Pop(Stack* stack) {
+Task Pop(Stack* stack)
+{
     if (IsStackEmpty(stack)) {
         printf("Stack Underflow Exception");
         exit(EXIT_FAILURE);
@@ -273,6 +280,28 @@ void ViewCompletedTasks(Stack* CompletedTaskStack)
             printf("\n");
             ix_to_peek--;
         }
+    }
+
+    return;
+}
+
+void UndoLastTask(Stack* CompletedTaskStack, Queue* TaskQueue)
+{
+    if (!IsStackEmpty(CompletedTaskStack))
+    {
+        // peek the stack's top task to retrieve its name
+        printf("\nUndoing Last Completed Task: \"%s\"\n", Peek(CompletedTaskStack, CompletedTaskStack->topIndex)->Name);
+        
+        //pops and stores the stack's top task
+        Task TaskToEnqueue = Pop(CompletedTaskStack);
+        //addTask enqueues the task properly and will allow the queue to update the front and back, as well as the "next" task
+        AddTask(TaskQueue, TaskToEnqueue.Name, TaskToEnqueue.PriorityLevel);
+
+    }
+    //queue is empty
+    else
+    {
+        printf("There are no completed tasks (yet)!\n");
     }
 
     return;

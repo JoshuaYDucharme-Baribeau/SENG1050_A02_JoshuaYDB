@@ -12,7 +12,8 @@
 #ifndef INPUTHANDLER_H
 #define INPUTHANDLER_H
 
-void GetNewTaskName(char** taskName);
+#define MAX_NAME_LENGTH 50
+void GetNewTaskName(char taskName[MAX_NAME_LENGTH]);
 
 int GetNewTaskPriority();
 
